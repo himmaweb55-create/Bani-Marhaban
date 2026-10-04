@@ -1,0 +1,232 @@
+{
+  "entities": {
+    "Anggota": {
+      "title": "Anggota",
+      "description": "Data anggota keluarga besar Bani Marhaban",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "kodeSilsilah": { "type": "string" },
+        "nomorAnggota": { "type": "string" },
+        "nama": { "type": "string" },
+        "jenisKelamin": { "type": "string", "enum": ["L", "P"] },
+        "tahunLahir": { "type": "number" },
+        "usia": { "type": "number" },
+        "statusHidup": { "type": "string", "enum": ["hidup", "wafat"] },
+        "tanggalWafat": { "type": "string" },
+        "ayahId": { "type": "string" },
+        "ibuId": { "type": "string" },
+        "pasanganIds": { "type": "array" },
+        "cabang": { "type": "string" },
+        "generasi": { "type": "number" },
+        "domisili": { "type": "string" },
+        "catatan": { "type": "string" },
+        "sumber": { "type": "string" },
+        "statusVerifikasi": { "type": "string", "enum": ["Terverifikasi", "Perlu Konfirmasi", "Usulan Perubahan"] },
+        "diarsipkan": { "type": "boolean" },
+        "fotoUrl": { "type": "string" },
+        "fotoType": { "type": "string", "enum": ["tautan", "drive"] }
+      },
+      "required": ["id", "nama", "jenisKelamin", "cabang", "generasi", "statusHidup", "statusVerifikasi", "diarsipkan"]
+    },
+    "Usulan": {
+      "title": "Usulan",
+      "description": "Usulan perubahan atau penambahan data dari anggota keluarga",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "jenis": { "type": "string", "enum": ["Koreksi Data", "Tambah Anggota", "Konfirmasi Data", "Tambah Cerita atau Informasi"] },
+        "anggotaId": { "type": "string" },
+        "anggotaNama": { "type": "string" },
+        "isiUsulan": { "type": "string" },
+        "namaPengusul": { "type": "string" },
+        "kontakPengusul": { "type": "string" },
+        "status": { "type": "string", "enum": ["Menunggu", "Disetujui", "Ditolak"] },
+        "alasanPenolakan": { "type": "string" },
+        "tanggal": { "type": "string" }
+      },
+      "required": ["id", "jenis", "isiUsulan", "namaPengusul", "status", "tanggal"]
+    },
+    "RiwayatPerubahan": {
+      "title": "RiwayatPerubahan",
+      "description": "Catatan riwayat perubahan silsilah yang tidak dapat diubah atau dihapus",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "targetType": { "type": "string" },
+        "targetId": { "type": "string" },
+        "targetNama": { "type": "string" },
+        "kolomDiubah": { "type": "string" },
+        "nilaiSebelum": { "type": "string" },
+        "nilaiSesudah": { "type": "string" },
+        "pengusul": { "type": "string" },
+        "pemverifikasi": { "type": "string" },
+        "tanggal": { "type": "string" }
+      },
+      "required": ["id", "targetId", "targetNama", "kolomDiubah", "nilaiSebelum", "nilaiSesudah", "pengusul", "pemverifikasi", "tanggal"]
+    },
+    "ArisanPeriode": {
+      "title": "ArisanPeriode",
+      "description": "Periode arisan keluarga",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nama": { "type": "string" },
+        "nominalIuran": { "type": "number" },
+        "jumlahPutaran": { "type": "number" },
+        "status": { "type": "string", "enum": ["Aktif", "Selesai"] },
+        "tanggalMulai": { "type": "string" },
+        "jadwalPertemuan": { "type": "string" },
+        "lokasiPertemuan": { "type": "string" }
+      },
+      "required": ["id", "nama", "nominalIuran", "jumlahPutaran", "status", "tanggalMulai"]
+    },
+    "ArisanPeserta": {
+      "title": "ArisanPeserta",
+      "description": "Peserta arisan periode tertentu",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "periodeId": { "type": "string" },
+        "anggotaId": { "type": "string" },
+        "nama": { "type": "string" },
+        "nomorUndian": { "type": "number" },
+        "sudahDapat": { "type": "boolean" },
+        "putaranDapat": { "type": "number" }
+      },
+      "required": ["id", "periodeId", "anggotaId", "nama", "nomorUndian", "sudahDapat"]
+    },
+    "ArisanPutaran": {
+      "title": "ArisanPutaran",
+      "description": "Putaran pengundian arisan",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "periodeId": { "type": "string" },
+        "putaranKe": { "type": "number" },
+        "tanggalUndian": { "type": "string" },
+        "penerimaAnggotaId": { "type": "string" },
+        "penerimaNama": { "type": "string" },
+        "tautanVideo": { "type": "string" },
+        "catatan": { "type": "string" }
+      },
+      "required": ["id", "periodeId", "putaranKe", "tanggalUndian", "penerimaAnggotaId", "penerimaNama"]
+    },
+    "ArisanPembayaran": {
+      "title": "ArisanPembayaran",
+      "description": "Catatan iuran peserta per putaran",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "periodeId": { "type": "string" },
+        "putaranKe": { "type": "number" },
+        "pesertaId": { "type": "string" },
+        "status": { "type": "string", "enum": ["Lunas", "Belum"] },
+        "tanggalBayar": { "type": "string" },
+        "nominal": { "type": "number" }
+      },
+      "required": ["id", "periodeId", "putaranKe", "pesertaId", "status", "nominal"]
+    },
+    "KhotmilPeriode": {
+      "title": "KhotmilPeriode",
+      "description": "Periode Khotmil Qur'an",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nama": { "type": "string" },
+        "tanggalMulai": { "type": "string" },
+        "tanggalSelesai": { "type": "string" },
+        "status": { "type": "string", "enum": ["Aktif", "Selesai"] }
+      },
+      "required": ["id", "nama", "tanggalMulai", "status"]
+    },
+    "KhotmilJuz": {
+      "title": "KhotmilJuz",
+      "description": "Pembagian 30 juz khotmil",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "periodeId": { "type": "string" },
+        "juzNomor": { "type": "number" },
+        "anggotaId": { "type": "string" },
+        "anggotaNama": { "type": "string" },
+        "status": { "type": "string", "enum": ["Belum", "Kholas"] },
+        "tanggalLapor": { "type": "string" }
+      },
+      "required": ["id", "periodeId", "juzNomor", "status"]
+    },
+    "Kegiatan": {
+      "title": "Kegiatan",
+      "description": "Agenda dan kegiatan keluarga",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "judul": { "type": "string" },
+        "jenis": { "type": "string" },
+        "tanggal": { "type": "string" },
+        "lokasi": { "type": "string" },
+        "deskripsi": { "type": "string" },
+        "status": { "type": "string", "enum": ["Rencana", "Berjalan", "Selesai"] },
+        "ringkasanHasil": { "type": "string" },
+        "albumTertautId": { "type": "string" }
+      },
+      "required": ["id", "judul", "jenis", "tanggal", "lokasi", "status"]
+    },
+    "Pengaturan": {
+      "title": "Pengaturan",
+      "description": "Pengaturan CMS, sinkronisasi, dan konfigurasi aplikasi",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "data": { "type": "object" }
+      },
+      "required": ["id"]
+    }
+  },
+  "firestore": {
+    "/anggota/{anggotaId}": {
+      "schema": "Anggota",
+      "description": "Koleksi data anggota keluarga besar Bani Marhaban"
+    },
+    "/usulan/{usulanId}": {
+      "schema": "Usulan",
+      "description": "Koleksi usulan data dari keluarga"
+    },
+    "/riwayatPerubahan/{riwayatId}": {
+      "schema": "RiwayatPerubahan",
+      "description": "Koleksi catatan riwayat perubahan"
+    },
+    "/arisanPeriode/{periodeId}": {
+      "schema": "ArisanPeriode",
+      "description": "Koleksi periode arisan"
+    },
+    "/arisanPeserta/{pesertaId}": {
+      "schema": "ArisanPeserta",
+      "description": "Koleksi peserta arisan"
+    },
+    "/arisanPutaran/{putaranId}": {
+      "schema": "ArisanPutaran",
+      "description": "Koleksi putaran arisan"
+    },
+    "/arisanPembayaran/{pembayaranId}": {
+      "schema": "ArisanPembayaran",
+      "description": "Koleksi pembayaran iuran arisan"
+    },
+    "/khotmilPeriode/{periodeId}": {
+      "schema": "KhotmilPeriode",
+      "description": "Koleksi periode khotmil qur'an"
+    },
+    "/khotmilJuz/{juzId}": {
+      "schema": "KhotmilJuz",
+      "description": "Koleksi juz khotmil"
+    },
+    "/kegiatan/{kegiatanId}": {
+      "schema": "Kegiatan",
+      "description": "Koleksi agenda kegiatan keluarga"
+    },
+    "/pengaturan/{pengaturanId}": {
+      "schema": "Pengaturan",
+      "description": "Koleksi konfigurasi CMS dan pengaturan sistem"
+    }
+  }
+}

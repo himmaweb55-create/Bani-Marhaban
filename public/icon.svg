@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="oliveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2F6B4F" />
+      <stop offset="100%" stop-color="#1E4734" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5C77A" />
+      <stop offset="100%" stop-color="#C9A24B" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="#FAF5EA" rx="100"/>
+  <circle cx="256" cy="256" r="216" fill="url(#oliveGrad)" stroke="url(#goldGrad)" stroke-width="12"/>
+  <circle cx="256" cy="256" r="196" fill="none" stroke="#FAF5EA" stroke-width="2" stroke-dasharray="6,6" opacity="0.4"/>
+  <text x="256" y="295" font-family="'Lora', Georgia, serif" font-size="160" font-weight="700" fill="#FAF5EA" text-anchor="middle" letter-spacing="4">BM</text>
+  <text x="256" y="360" font-family="'Nunito Sans', sans-serif" font-size="28" font-weight="600" fill="#E5C77A" text-anchor="middle" letter-spacing="6">BANI MARHABAN</text>
+</svg>

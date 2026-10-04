@@ -1,0 +1,6 @@
+{
+  "name": "BANI MARHABAN",
+  "description": "Aplikasi Privat Keluarga Besar Bani Marhaban: Silsilah, Peta Data, Arisan, Khotmil Qur'an, dan Dokumentasi Lintas Generasi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

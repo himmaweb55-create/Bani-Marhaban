@@ -1,0 +1,70 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    match /anggota/{anggotaId} {
+      allow read: if true;
+      allow write: if isValidId(anggotaId);
+    }
+
+    match /usulan/{usulanId} {
+      allow read: if true;
+      allow create: if isValidId(usulanId);
+      allow update, delete: if isValidId(usulanId);
+    }
+
+    match /riwayatPerubahan/{riwayatId} {
+      allow read: if true;
+      allow create: if isValidId(riwayatId);
+      allow update, delete: if false; // Immutable audit log
+    }
+
+    match /arisanPeriode/{periodeId} {
+      allow read: if true;
+      allow write: if isValidId(periodeId);
+    }
+
+    match /arisanPeserta/{pesertaId} {
+      allow read: if true;
+      allow write: if isValidId(pesertaId);
+    }
+
+    match /arisanPutaran/{putaranId} {
+      allow read: if true;
+      allow write: if isValidId(putaranId);
+    }
+
+    match /arisanPembayaran/{pembayaranId} {
+      allow read: if true;
+      allow write: if isValidId(pembayaranId);
+    }
+
+    match /khotmilPeriode/{periodeId} {
+      allow read: if true;
+      allow write: if isValidId(periodeId);
+    }
+
+    match /khotmilJuz/{juzId} {
+      allow read: if true;
+      allow write: if isValidId(juzId);
+    }
+
+    match /kegiatan/{kegiatanId} {
+      allow read: if true;
+      allow write: if isValidId(kegiatanId);
+    }
+
+    match /pengaturan/{pengaturanId} {
+      allow read: if true;
+      allow write: if isValidId(pengaturanId);
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
